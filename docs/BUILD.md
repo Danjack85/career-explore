@@ -133,3 +133,29 @@ v0.2.0 安装到 Android 模拟器（API 35，x86_64）后逐项验证：
 
 窄屏与可点面积（T12）用浏览器在 320 / 360 / 390px 三个宽度逐页测量：
 8 个页面均无横向溢出；7 天网格、输入框、能量按钮、来源链接均已达到或接近 44px。
+
+## 把 APK 发到邮箱
+
+```bash
+pnpm build-apk   # 先出包（等价于 node tools/build-apk.mjs）
+SMTP_USER=发件邮箱 SMTP_PASS=授权码 MAIL_TO=收件邮箱 pnpm send-apk
+```
+
+`tools/send-apk-email.mjs` 用 Node 内置 `tls` 直接跟 SMTP 对话，
+**不引入 nodemailer**（只用到「SSL + AUTH LOGIN + 一个附件」这一条路径）。
+
+凭据全部走环境变量，**不写入任何文件**：
+
+| 变量 | 说明 |
+| --- | --- |
+| `SMTP_HOST` | 默认 `smtp.qq.com` |
+| `SMTP_PORT` | 默认 `465`（SSL） |
+| `SMTP_USER` | 发件邮箱 |
+| `SMTP_PASS` | 邮箱**授权码**（不是登录密码） |
+| `MAIL_TO` | 收件人，多个用逗号分隔 |
+| `MAIL_SUBJECT` | 可选，默认带版本号 |
+
+加 `--dry-run` 可只组装邮件并打印大小，不连 SMTP（此时不需要凭据）。
+
+> QQ 邮箱的授权码在「设置 → 账户 → POP3/IMAP/SMTP 服务」里生成。
+> 它等同于该邮箱的发信权限，**不要提交进仓库**；若已泄漏，去邮箱重置。

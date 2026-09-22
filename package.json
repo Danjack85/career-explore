@@ -17,6 +17,7 @@
     "apk": "node tools/build-apk.mjs",
     "apk:skip-web": "node tools/build-apk.mjs --skip-web",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true});require('node:fs').rmSync('android/app/src/main/assets/public',{recursive:true,force:true});console.log('已清理构建产物：dist/ 与 android/app/src/main/assets/public/')\"",
+    "send-apk": "node tools/send-apk-email.mjs",
     "feed": "node tools/fetch-info-feed.mjs",
     "evidence": "node tools/fetch-industry-evidence.mjs",
     "icons": "python tools/gen-icons.py"
