@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--
+        应用是纯浅色设计（docs/DESIGN.md：白底深灰字），所以这里不能用 DayNight。
+        用 DayNight 时系统切到深色会导致两件事：
+          1. 原生窗口背景变深，WebView 首次绘制前会闪一下黑；
+          2. isLightTheme 为 false，WebView 可能对网页做算法性暗化（force dark），
+             把已经定好的配色反转掉。
+        改成 Light 后 isLightTheme 为 true，网页按原样渲染。
+    -->
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="android:background">@drawable/splash</item>
+        <!-- Android 12+ 走 androidx core-splashscreen：这里只控制底色，
+             图标沿用应用图标。与 drawable/splash.png 的白底保持一致。 -->
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+    </style>
+</resources>

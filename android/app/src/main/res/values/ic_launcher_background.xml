@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 自适应图标的背景层。前景是白色标记（mipmap-*/ic_launcher_foreground.png），
+         所以背景必须是主色 #2563EB，否则白底白图形会看不见。
+         取值对齐 docs/DESIGN.md 的主色。 -->
+    <color name="ic_launcher_background">#2563EB</color>
+</resources>

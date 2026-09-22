@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-22T13:51:21.803Z",
+  "generator": "tools/fetch-info-feed.mjs",
+  "note": "自动抓取自官方来源，只含标题 / 链接 / 日期等事实字段。summary / impact / action 留空 —— 「意味着什么」和「该做什么」是判断，不由脚本生成。",
+  "sources": [
+    {
+      "name": "国家统计局",
+      "level": "官方数据",
+      "list_url": "https://www.stats.gov.cn/sj/zxfb/"
+    },
+    {
+      "name": "国家统计局",
+      "level": "官方数据",
+      "list_url": "https://www.stats.gov.cn/sj/sjjd/"
+    },
+    {
+      "name": "教育部",
+      "level": "官方数据",
+      "list_url": "http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/"
+    },
+    {
+      "name": "教育部",
+      "level": "官方数据",
+      "list_url": "http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/"
+    },
+    {
+      "name": "国家发展改革委",
+      "level": "官方数据",
+      "list_url": "https://www.ndrc.gov.cn/xwdt/xwfb/"
+    }
+  ],
+  "items": [
+    {
+      "id": "info-0154d8ac7637",
+      "title": "教育部启动2027届高校毕业生“金秋启航”校园招聘月活动",
+      "source_name": "教育部",
+      "source_level": "官方数据",
+      "url": "http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202609/t20260918_1451304.html",
+      "published_at": "2026-09-18",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "毕业生",
+        "就业",
+        "教育",
+        "工作动态"
+      ],
+      "created_at": "2026-09-22T13:51:21.800Z"
+    },
+    {
+      "id": "info-6a5b3674fd4a",
+      "title": "2026年8月份规模以上工业增加值增长5.2%",
+      "source_name": "国家统计局",
+      "source_level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965308.html",
+      "published_at": "2026-09-15",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "制造业",
+        "最新发布"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-e559e776eb5e",
+      "title": "2026年1—8月份全国固定资产投资基本情况",
+      "source_name": "国家统计局",
+      "source_level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965309.html",
+      "published_at": "2026-09-15",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "投资",
+        "最新发布"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-f72f03985a42",
+      "title": "2026年1—8月份全国房地产市场基本情况",
+      "source_name": "国家统计局",
+      "source_level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965310.html",
+      "published_at": "2026-09-15",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "房地产",
+        "最新发布"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-9bb6512c3335",
+      "title": "郑栅洁主任主持召开民营企业座谈会 围绕优化发展环境、拓展投资空间听取意见建议",
+      "source_name": "国家发展改革委",
+      "source_level": "官方数据",
+      "url": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260915_1407645.html",
+      "published_at": "2026-09-15",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "投资",
+        "企业",
+        "政策",
+        "新闻发布会"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-70b835a9b406",
+      "title": "2026年9月11日国家对成品油价格实施调控",
+      "source_name": "国家发展改革委",
+      "source_level": "官方数据",
+      "url": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260911_1407564.html",
+      "published_at": "2026-09-11",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "价格",
+        "新闻发布会"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-82ad3df08b38",
+      "title": "国家发展改革委召开“十五五”规划《纲要》重大工程建设推进会议 调度109项重大工程项目实施",
+      "source_name": "国家发展改革委",
+      "source_level": "官方数据",
+      "url": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260904_1407416.html",
+      "published_at": "2026-09-04",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "政策",
+        "新闻发布会"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-f888c8af0a31",
+      "title": "教育部部署2026年全国成人高校招生工作",
+      "source_name": "教育部",
+      "source_level": "官方数据",
+      "url": "http://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202609/t20260903_1448879.html",
+      "published_at": "2026-09-03",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "教育",
+        "工作动态"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    },
+    {
+      "id": "info-bef2ae230941",
+      "title": "国务院关于印发《教育发展“十五五”规划》的通知",
+      "source_name": "教育部",
+      "source_level": "官方数据",
+      "url": "http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/202606/t20260629_1442045.html",
+      "published_at": "2026-06-29",
+      "summary": "",
+      "impact": "",
+      "action": "",
+      "tags": [
+        "政策",
+        "政策文件"
+      ],
+      "created_at": "2026-09-22T13:51:21.803Z"
+    }
+  ]
+}

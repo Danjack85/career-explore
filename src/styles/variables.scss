@@ -1,0 +1,38 @@
+// 设计变量，取值对齐 docs/DESIGN.md。
+// 本文件只放变量，不放选择器；由 vite.config.ts 注入到每个样式块。
+
+// 主色
+$color-primary: #2563eb;
+$color-primary-soft: #eff6ff;
+
+// 文字
+$color-text: #1f2937;
+$color-text-secondary: #6b7280;
+$color-text-muted: #9ca3af;
+
+// 背景与边框
+$color-bg: #ffffff;
+$color-surface: #f9fafb;
+$color-border: #e5e7eb;
+
+// 语义色
+$color-warning: #b45309;
+$color-danger: #b91c1c;
+$color-success: #15803d;
+
+// 字号（对齐 DESIGN：标题 18-20 / 正文 14-16 / 辅助 12-13）
+$font-size-title: 19px;
+$font-size-body: 15px;
+$font-size-caption: 13px;
+
+// 间距
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+
+// 圆角
+$radius-card: 12px;
+$radius-button: 8px;
+
+// 控件高度
+$control-height: 44px;

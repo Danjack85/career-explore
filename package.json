@@ -1,0 +1,50 @@
+{
+  "name": "career-explore",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "给 20-25 岁大学生 / 应届生的职业探索 App：用低成本实验找到下一步",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "vue-tsc --noEmit && eslint .",
+    "apk": "node tools/build-apk.mjs",
+    "apk:skip-web": "node tools/build-apk.mjs --skip-web",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true});require('node:fs').rmSync('android/app/src/main/assets/public',{recursive:true,force:true});console.log('已清理构建产物：dist/ 与 android/app/src/main/assets/public/')\"",
+    "feed": "node tools/fetch-info-feed.mjs",
+    "evidence": "node tools/fetch-industry-evidence.mjs",
+    "icons": "python tools/gen-icons.py"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.5.2",
+    "vue": "3.5.43",
+    "vue-router": "4.6.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "@eslint/js": "9.39.5",
+    "@types/node": "26.6.2",
+    "@vitejs/plugin-vue": "6.0.9",
+    "eslint": "9.39.5",
+    "eslint-plugin-vue": "10.11.0",
+    "sass": "1.104.1",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.0",
+    "vite": "7.3.6",
+    "vue-tsc": "3.3.11"
+  }
+}

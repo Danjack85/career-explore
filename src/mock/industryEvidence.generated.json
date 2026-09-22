@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "generated_at": "2026-09-22T14:20:29.103Z",
+  "generator": "tools/fetch-industry-evidence.mjs",
+  "note": "quote 是官方原文原句，未改写，用于支撑卡片判断；它支撑判断但不等于判断本身。status=none 的行业是官方统计未覆盖该口径，界面显示「来源待人工补充」，不编造。",
+  "counts": {
+    "stat": 3,
+    "policy": 1,
+    "none": 6
+  },
+  "evidence": [
+    {
+      "industry": "real-estate",
+      "industry_name": "房地产",
+      "status": "stat",
+      "name": "国家统计局",
+      "level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965310.html",
+      "article_title": "2026年1—8月份全国房地产市场基本情况",
+      "date": "2026-09-15",
+      "quote": "房屋新开工面积29894万平方米，下降24.8%",
+      "extra_quote": null,
+      "note": "开发投资与新开工面积是房地产景气的先行指标",
+      "fetched_at": "2026-09-22T14:20:26.494Z"
+    },
+    {
+      "industry": "new-energy",
+      "industry_name": "新能源",
+      "status": "stat",
+      "name": "国家统计局",
+      "level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965312.html",
+      "article_title": "2026年8月份能源生产情况",
+      "date": "2026-09-15",
+      "quote": "规上工业风电增长7.9%，增速加快3.4个百分点",
+      "extra_quote": "规上工业太阳能发电增长10.3%，增速加快4.7个百分点",
+      "note": "风电与太阳能发电量是新能源装机和消纳的直接指标",
+      "fetched_at": "2026-09-22T14:20:27.569Z"
+    },
+    {
+      "industry": "local-life",
+      "industry_name": "本地生活",
+      "status": "stat",
+      "name": "国家统计局",
+      "level": "官方数据",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965311.html",
+      "article_title": "2026年1—8月份社会消费品零售总额增长1.1%",
+      "date": "2026-09-15",
+      "quote": "餐饮收入37366亿元，增长2.4%",
+      "extra_quote": "餐饮收入4544亿元，增长1.1%",
+      "note": "餐饮收入是到店消费的直接口径",
+      "fetched_at": "2026-09-22T14:20:28.594Z"
+    },
+    {
+      "industry": "online-education",
+      "industry_name": "在线教育",
+      "status": "policy",
+      "name": "教育部",
+      "level": "官方数据",
+      "url": "http://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/202606/t20260629_1442045.html",
+      "article_title": "国务院关于印发《教育发展“十五五”规划》的通知",
+      "date": "2026-06-29",
+      "quote": null,
+      "note": "政策文件（非统计数字），用于说明监管与发展的框架",
+      "fetched_at": "2026-09-22T14:20:29.102Z"
+    },
+    {
+      "industry": "ai-application",
+      "industry_name": "人工智能应用",
+      "status": "none",
+      "reason": "官方统计未单列「人工智能应用」口径；相关数据分散在高技术产业投资等宽口径中，无法直接对应"
+    },
+    {
+      "industry": "cross-border-ecommerce",
+      "industry_name": "跨境电商",
+      "status": "none",
+      "reason": "海关总署有进出口数据，但未细分到跨境电商口径；本脚本未接入海关来源"
+    },
+    {
+      "industry": "enterprise-saas",
+      "industry_name": "企业服务SaaS",
+      "status": "none",
+      "reason": "官方统计未单列 SaaS 口径；用「第三产业投资」这类宽口径硬套属于过度关联，不做"
+    },
+    {
+      "industry": "semiconductor",
+      "industry_name": "半导体",
+      "status": "none",
+      "reason": "统计局分行业增加值未单列半导体；集成电路产量在「主要工业产品产量」中，本脚本未接入"
+    },
+    {
+      "industry": "traditional-media",
+      "industry_name": "传统媒体",
+      "status": "none",
+      "reason": "官方统计未单列传统媒体口径"
+    },
+    {
+      "industry": "gaming",
+      "industry_name": "游戏",
+      "status": "none",
+      "reason": "官方统计未单列游戏口径；版号与收入数据在主管部门与行业报告中，本脚本未接入"
+    }
+  ]
+}
