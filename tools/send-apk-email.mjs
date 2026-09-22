@@ -20,7 +20,7 @@
  */
 
 import { connect } from 'node:tls'
-import { createReadStream, readFileSync, statSync } from 'node:fs'
+import { readFileSync, statSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { basename, dirname, join, resolve } from 'node:path'
 

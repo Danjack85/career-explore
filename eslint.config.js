@@ -41,6 +41,7 @@ export default tseslint.config(
         clearTimeout: 'readonly',
         TextDecoder: 'readonly',
         TextEncoder: 'readonly',
+        Buffer: 'readonly',
       },
     },
   },
