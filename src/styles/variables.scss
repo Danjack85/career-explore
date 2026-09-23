@@ -1,24 +1,36 @@
 // 设计变量，取值对齐 docs/DESIGN.md。
 // 本文件只放变量，不放选择器；由 vite.config.ts 注入到每个样式块。
+//
+// 所有文字色都经过 WCAG 2.1 对比度核算（阈值 4.5:1），实测值见 docs/DESIGN.md。
+// 改色前请先跑一遍核算 —— 这些值不是随手挑的，是算出来的。
 
 // 主色
 $color-primary: #2563eb;
 $color-primary-soft: #eff6ff;
 
-// 文字
-$color-text: #1f2937;
-$color-text-secondary: #6b7280;
-$color-text-muted: #9ca3af;
+// 文字。三级层次，每一级都在白底、surface、主色浅底上 >= 4.5:1
+$color-text: #1f2937; // 14.7:1 正文
+$color-text-secondary: #4b5563; // 7.6:1 说明文字
+$color-text-muted: #676f7c; // 5.1:1 元信息（时间、计数）
+// 注意：旧的 #9ca3af 只有 2.5:1，已不再用于任何需要阅读的文字。
+// 它只适合禁用态或纯装饰（WCAG 对禁用元素不要求对比度）。
 
 // 背景与边框
 $color-bg: #ffffff;
 $color-surface: #f9fafb;
 $color-border: #e5e7eb;
 
-// 语义色
-$color-warning: #b45309;
+// 语义色。这三个是「文字色」，都在各自的浅底上 >= 4.5:1
+$color-warning: #92400e;
 $color-danger: #b91c1c;
-$color-success: #15803d;
+$color-success: #166534;
+
+// 语义浅底（同色系低透明度，用于标签与提示块）
+// 固定成十六进制而不是 rgba()，这样对比度可核算、也便于跨组件统一
+$color-warning-soft: #f9f4f1;
+$color-danger-soft: #fcf5f5;
+$color-success-soft: #e8f0eb;
+$color-neutral-soft: #f3f4f6;
 
 // 字号（对齐 DESIGN：标题 18-20 / 正文 14-16 / 辅助 12-13）
 $font-size-title: 19px;

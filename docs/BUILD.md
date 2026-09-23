@@ -7,7 +7,7 @@
 | 文件 | `release/app-debug.apk` |
 | 来源 | `android/app/build/outputs/apk/debug/app-debug.apk` |
 | 大小 | 4,375,943 字节（约 4.2 MB） |
-| SHA256 | `1b6f9c4b5cd1f50f3f405b47e59c177763dc2f8787bf311db13fa3d5b6004a89` |
+| SHA256 | `1560398fe0e655fc309599d3047c2ea45c05ed6075456021eb94b7b0d112d699` |
 | 构建时间 | 2026-09-22 23:26（本地时间） |
 | 包名 | `com.career.explore` |
 | 应用名 | 职业探索 |

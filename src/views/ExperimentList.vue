@@ -177,7 +177,7 @@ onMounted(load)
 }
 
 .conclusion-continue {
-  background-color: rgba(21, 128, 61, 0.1);
+  background-color: $color-success-soft;
   color: $color-success;
 }
 
@@ -187,7 +187,7 @@ onMounted(load)
 }
 
 .conclusion-change {
-  background-color: rgba(180, 83, 9, 0.1);
+  background-color: rgba(146, 64, 14, 0.1);
   color: $color-warning;
 }
 

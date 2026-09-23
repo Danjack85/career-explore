@@ -265,12 +265,12 @@ watch(() => props.id, load)
 }
 
 .kind-stat {
-  background-color: rgba(21, 128, 61, 0.1);
+  background-color: $color-success-soft;
   color: $color-success;
 }
 
 .kind-policy {
-  background-color: rgba(107, 114, 128, 0.14);
+  background-color: rgba(75, 85, 99, 0.14);
   color: $color-text-secondary;
 }
 
@@ -310,9 +310,9 @@ watch(() => props.id, load)
 .source-missing {
   margin: 0;
   padding: 10px 12px;
-  border: 1px dashed rgba(180, 83, 9, 0.4);
+  border: 1px dashed rgba(146, 64, 14, 0.4);
   border-radius: $radius-button;
-  background-color: rgba(180, 83, 9, 0.05);
+  background-color: rgba(146, 64, 14, 0.05);
   color: $color-warning;
   font-size: $font-size-caption;
 }

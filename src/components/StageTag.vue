@@ -8,7 +8,8 @@ import type { IndustryStage } from '@/api'
 
 const props = defineProps<{ stage: IndustryStage }>()
 
-// 五档各一色。衰退与低谷观察用警示色（不用危险色），靠描边区分两者。
+// 五档各一色。衰退与低谷观察用警示色，靠描边区分两者。
+// 色值都经过对比度核算（同色 10% 底上 >= 4.5:1），实测见 docs/DESIGN.md。
 const TONE: Record<IndustryStage, string> = {
   萌发: 'tone-seed',
   成长: 'tone-growth',
@@ -36,8 +37,9 @@ const toneClass = computed(() => TONE[props.stage])
 }
 
 .tone-growth {
-  background-color: $color-primary-soft;
-  color: $color-primary;
+  // 原 #2563eb 在同色底上只有 4.49:1，差一点点，压深一档
+  background-color: rgba(29, 78, 216, 0.1);
+  color: #1d4ed8;
 }
 
 .tone-mature {
@@ -46,12 +48,12 @@ const toneClass = computed(() => TONE[props.stage])
 }
 
 .tone-decline {
-  background-color: rgba(180, 83, 9, 0.1);
+  background-color: rgba(146, 64, 14, 0.1);
   color: $color-warning;
 }
 
 .tone-watch {
-  border: 1px solid rgba(180, 83, 9, 0.4);
+  border: 1px solid rgba(146, 64, 14, 0.4);
   background-color: transparent;
   color: $color-warning;
 }

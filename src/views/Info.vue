@@ -299,9 +299,9 @@ onMounted(load)
 .warn {
   margin: $space-sm 0 0;
   padding: 10px 12px;
-  border: 1px solid rgba(180, 83, 9, 0.3);
+  border: 1px solid rgba(146, 64, 14, 0.3);
   border-radius: $radius-button;
-  background-color: rgba(180, 83, 9, 0.06);
+  background-color: rgba(146, 64, 14, 0.06);
   color: $color-warning;
   font-size: $font-size-caption;
 }
@@ -312,11 +312,14 @@ onMounted(load)
   color: $color-text-muted;
 }
 
+// 行内代码用 secondary 而不是 muted：它套了一层深底，用最弱的辅助色会掉到 4.5 以下；
+// 而且这是让用户照着输入的字面量，本就该更清楚
 .hint code,
 .warn code {
   padding: 1px 4px;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.06);
+  color: $color-text-secondary;
   font-size: 11px;
 }
 
@@ -362,12 +365,12 @@ onMounted(load)
 }
 
 .label-opinion {
-  background-color: rgba(107, 114, 128, 0.12);
+  background-color: rgba(75, 85, 99, 0.12);
   color: $color-text-secondary;
 }
 
 .label-action {
-  background-color: rgba(21, 128, 61, 0.1);
+  background-color: $color-success-soft;
   color: $color-success;
 }
 

@@ -545,7 +545,6 @@ watch(() => props.id, refresh)
   border-radius: $radius-button;
   background-color: rgba(185, 28, 28, 0.04);
 }
-
 .confirm-text {
   margin: 0;
   font-size: $font-size-caption;
@@ -741,7 +740,7 @@ watch(() => props.id, refresh)
 }
 
 .suggestion-continue {
-  background-color: rgba(21, 128, 61, 0.08);
+  background-color: rgba(22, 101, 52, 0.08);
   color: $color-success;
 }
 
@@ -751,7 +750,7 @@ watch(() => props.id, refresh)
 }
 
 .suggestion-change {
-  background-color: rgba(180, 83, 9, 0.08);
+  background-color: rgba(146, 64, 14, 0.08);
   color: $color-warning;
 }
 

@@ -48,12 +48,12 @@ const toneClass = computed(() => TONE[props.status])
 }
 
 .tone-done {
-  background-color: rgba(21, 128, 61, 0.1);
+  background-color: $color-success-soft;
   color: $color-success;
 }
 
 .tone-dropped {
-  background-color: rgba(107, 114, 128, 0.14);
+  background-color: rgba(75, 85, 99, 0.14);
   color: $color-text-secondary;
 }
 </style>
