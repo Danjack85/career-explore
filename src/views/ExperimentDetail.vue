@@ -187,6 +187,45 @@
         <p v-if="result" class="review-result" :class="resultClass">
           结论已记录：{{ experiment.conclusion }}。{{ resultText }}
         </p>
+
+        <!-- 结论之后给出去向：继续/换方式/排除各有不同的下一步，避免记录完就是死胡同 -->
+        <div v-if="result" class="next-after">
+          <template v-if="result === '继续'">
+            <p class="next-after-text">
+              方向留下来了。下一轮把任务换得更接近真实工作，别重复这一周的强度。
+            </p>
+            <router-link class="btn-secondary next-after-btn" to="/templates">
+              挑一个更进一步的模板
+            </router-link>
+          </template>
+
+          <template v-else-if="result === '换方式'">
+            <p class="next-after-text">
+              方向和方式都没错，错的是搭配。用同一个模板换个节奏再来 7 天。
+            </p>
+            <button
+              v-if="template"
+              class="btn-primary next-after-btn"
+              type="button"
+              :disabled="restarting"
+              @click="restartFromTemplate"
+            >
+              {{ restarting ? '创建中…' : '换个方式，再来 7 天' }}
+            </button>
+            <router-link v-else class="btn-secondary next-after-btn" to="/templates">
+              去模板库挑一个新方式
+            </router-link>
+          </template>
+
+          <template v-else>
+            <p class="next-after-text">
+              这个方向可以划掉了——省下的时间就是这次实验的收益。把它花在下一个可能上。
+            </p>
+            <router-link class="btn-secondary next-after-btn" to="/templates">
+              换个方向，挑一个模板
+            </router-link>
+          </template>
+        </div>
         <p v-else-if="progress.logged === 0" class="review-hint">至少记录 1 天之后才能写复盘。</p>
 
         <p class="drop-note">
@@ -236,6 +275,7 @@ import { useRouter } from 'vue-router'
 import {
   EXPERIMENT_DAYS,
   averageEnergy,
+  createExperiment,
   daysWithLike,
   getExperiment,
   getTemplate,
@@ -428,6 +468,31 @@ async function doDelete(): Promise<void> {
   } catch {
     deleting.value = false
     confirmingDelete.value = false
+  }
+}
+
+/** 「换方式」的一键续轮：同一模板再来 7 天，标题标注轮次（从旧标题递增） */
+const restarting = ref(false)
+
+async function restartFromTemplate(): Promise<void> {
+  const t = template.value
+  const current = experiment.value
+  if (!t || !current || restarting.value) return
+  restarting.value = true
+  try {
+    // 从旧标题解析轮次：第 2 轮再换方式 → 第 3 轮
+    const m = /（第 (\d+) 轮）/.exec(current.title)
+    const round = m ? Number(m[1]) + 1 : 2
+    const baseTitle = t.title
+    const created = await createExperiment({
+      title: `${baseTitle}（第 ${round} 轮）`,
+      direction: t.direction,
+      hypothesis: t.hypothesis,
+      template_id: t.id,
+    })
+    await router.push(`/experiment/${created.id}`)
+  } catch {
+    restarting.value = false
   }
 }
 
@@ -821,6 +886,24 @@ watch(() => props.id, refresh)
 .review-result {
   margin: 12px 0 0;
   font-size: $font-size-caption;
+}
+
+/* 结论后的去向：与复盘建议块拉开一点距离 */
+.next-after {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed $color-border;
+}
+
+.next-after-text {
+  margin: 0 0 10px;
+  font-size: $font-size-caption;
+  color: $color-text-secondary;
+}
+
+.next-after-btn {
+  width: 100%;
+  text-decoration: none;
 }
 
 .result-continue {

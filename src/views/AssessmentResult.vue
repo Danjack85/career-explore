@@ -51,6 +51,18 @@
         </article>
       </section>
 
+      <!-- 盘点结果接通模板库：按行事方式排序，而不是让用户自己再翻一遍 -->
+      <router-link
+        v-if="primaryStyle"
+        class="tpl-link"
+        :to="`/templates?style=${primaryStyle}`"
+      >
+        <span class="tpl-link-title">13 个实验模板，已按你的结果排序</span>
+        <span class="tpl-link-desc">
+          你的作答偏向「{{ STYLE_LABEL[primaryStyle] }}」——匹配的模板排在了前面，挑一个直接开始。
+        </span>
+      </router-link>
+
       <p v-if="joinError" class="error">{{ joinError }}</p>
 
       <p class="disclaimer">
@@ -68,7 +80,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { createExperiment, getLatestAssessments, scoreAll } from '@/api'
+import { createExperiment, getLatestAssessments, scoreAll, STYLE_LABEL } from '@/api'
 import type { AssessmentAnswers, Direction } from '@/api'
 import LoadState from '@/components/LoadState.vue'
 
@@ -81,6 +93,7 @@ const joinError = ref('')
 const answers = ref<AssessmentAnswers>({})
 
 const result = computed(() => scoreAll(answers.value))
+const primaryStyle = computed(() => result.value.primaryStyle)
 const hasResult = computed(() => Object.keys(answers.value).length > 0)
 
 async function load(): Promise<void> {
@@ -223,6 +236,32 @@ async function joinExperiment(direction: Direction): Promise<void> {
   margin: $space-md 0 0;
   color: $color-danger;
   font-size: $font-size-caption;
+}
+
+/* 盘点 → 模板库的入口：主色浅底与页面其他块区分 */
+.tpl-link {
+  display: block;
+  margin-top: $space-lg;
+  padding: 12px $space-md;
+  border: 1px solid $color-primary;
+  border-radius: $radius-card;
+  background-color: $color-primary-soft;
+  text-decoration: none;
+}
+
+.tpl-link-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: $color-primary;
+}
+
+.tpl-link-desc {
+  display: block;
+  margin-top: 4px;
+  font-size: $font-size-caption;
+  line-height: 1.7;
+  color: $color-text;
 }
 
 .disclaimer {

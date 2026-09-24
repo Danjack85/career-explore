@@ -23,6 +23,8 @@ export interface Direction {
 export interface ScoreResult {
   style: Record<WorkStyle, number>
   value: Record<WorkValue, number>
+  /** 得分最高的行事方式；没有任何作答时为 null */
+  primaryStyle: WorkStyle | null
   keywords: string[]
   directions: Direction[]
   summary: string
@@ -233,6 +235,7 @@ export function emptyResult(): ScoreResult {
   return {
     style: emptyStyle(),
     value: emptyValue(),
+    primaryStyle: null,
     keywords: [],
     directions: [],
     summary: '',
@@ -292,6 +295,7 @@ export function scoreAll(answers: AssessmentAnswers): ScoreResult {
   return {
     style,
     value,
+    primaryStyle: primaryStyle ?? null,
     keywords: trimmed,
     directions,
     summary: summaryParts.join(''),

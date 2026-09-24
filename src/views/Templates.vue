@@ -8,6 +8,10 @@
 
     <FilterChips v-model="activeTag" :chips="chips" group-label="按标签筛选" />
 
+    <p v-if="styleHint" class="style-hint">
+      已按你的盘点结果排序：你的作答偏向「{{ STYLE_LABEL[styleHint] }}」，匹配的模板排在了前面。
+    </p>
+
     <template v-if="visible.length > 0">
       <article v-for="t in visible" :key="t.id" class="card tpl">
         <div class="tpl-head">
@@ -55,28 +59,55 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { TEMPLATES, createExperiment, templateTags } from '@/api'
-import type { ExperimentTemplate } from '@/api'
+import type { ExperimentTemplate, WorkStyle } from '@/api'
 import FilterChips from '@/components/FilterChips.vue'
 
 const router = useRouter()
+const route = useRoute()
 
 const activeTag = ref<string | null>(null)
 const expandedId = ref<string | null>(null)
 const startingId = ref<string | null>(null)
 const error = ref('')
 
+/**
+ * 测评结果页带来的行事方式（/templates?style=build）。
+ * 命中时把匹配的模板排前面并提示一句 —— 不隐藏其他模板，
+ * 排序是建议，不是过滤。
+ */
+const styleHint = computed(() => {
+  const s = typeof route.query.style === 'string' ? route.query.style : ''
+  const valid: WorkStyle[] = ['build', 'analyze', 'people', 'express']
+  return valid.includes(s as WorkStyle) ? (s as WorkStyle) : null
+})
+
+const STYLE_LABEL: Record<WorkStyle, string> = {
+  build: '动手做出来',
+  analyze: '把问题想清楚',
+  people: '和人一起推进',
+  express: '用表达输出',
+}
+
+const visible = computed(() => {
+  const list =
+    activeTag.value === null
+      ? [...TEMPLATES]
+      : TEMPLATES.filter((t) => t.tags.includes(activeTag.value as string))
+  if (!styleHint.value) return list
+  // 稳定排序：匹配的排前面，其余保持原序
+  return list.sort((a, b) => {
+    const am = a.styles.includes(styleHint.value as WorkStyle) ? 0 : 1
+    const bm = b.styles.includes(styleHint.value as WorkStyle) ? 0 : 1
+    return am - bm
+  })
+})
+
 const chips = computed(() => [
   { value: null as string | null, label: '全部', count: TEMPLATES.length },
   ...templateTags().map((tag) => ({ value: tag as string | null, label: tag })),
 ])
-
-const visible = computed(() =>
-  activeTag.value === null
-    ? TEMPLATES
-    : TEMPLATES.filter((t) => t.tags.includes(activeTag.value as string))
-)
 
 function toggle(id: string): void {
   expandedId.value = expandedId.value === id ? null : id
@@ -101,6 +132,16 @@ function start(t: ExperimentTemplate): void {
 </script>
 
 <style scoped lang="scss">
+.style-hint {
+  margin: $space-md 0 0;
+  padding: 10px 12px;
+  border: 1px solid $color-border;
+  border-radius: $radius-button;
+  background-color: $color-primary-soft;
+  color: $color-text;
+  font-size: $font-size-caption;
+}
+
 .tpl {
   margin-top: 12px;
 }

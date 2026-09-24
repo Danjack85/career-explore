@@ -15,6 +15,8 @@
  *   - 假设是**示例**：示范「可证伪」的写法，用户开始前可以改成自己的。
  */
 
+import type { WorkStyle } from './assessmentQuestions'
+
 export interface ExperimentTemplate {
   id: string
   /** 展示用标题，以「7 天：」开头 */
@@ -23,6 +25,11 @@ export interface ExperimentTemplate {
   direction: string
   /** 关联的行业卡片 id；通用模板为 null */
   industry: string | null
+  /**
+   * 适合的行事方式（与测评的维度对应，见 assessmentQuestions.ts）。
+   * 测评结果页据此把匹配的模板排到前面。
+   */
+  styles: WorkStyle[]
   /**
    * 可证伪假设的示例。
    * 开始实验时预填，鼓励用户改写成自己的 —— 但写得太笼统也可以直接用。
@@ -42,6 +49,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：每天用 AI 完成一件真实的小事',
     direction: '人工智能应用',
     industry: 'ai-application',
+    styles: ['build'],
     hypothesis:
       '我猜连续 7 天用 AI 干活之后，我能分清哪些活它真省力、哪些活它帮倒忙，并知道自己愿不愿意继续深挖。',
     days: [
@@ -61,6 +69,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：看懂新能源产业链的一环',
     direction: '新能源',
     industry: 'new-energy',
+    styles: ['analyze'],
     hypothesis:
       '我猜每天 30 分钟读产业链资料、第 7 天画出一张图之后，我会知道自己对「硬制造」是真有兴趣还是只想找个热门方向。',
     days: [
@@ -80,6 +89,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：像选品运营一样逛购物平台',
     direction: '跨境电商',
     industry: 'cross-border-ecommerce',
+    styles: ['analyze'],
     hypothesis:
       '我猜每天用选品的眼睛逛 30 分钟之后，我会知道自己对「做生意」是真有兴趣，还是只是想赚钱。',
     days: [
@@ -99,6 +109,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：观察同一家店的生意',
     direction: '本地生活',
     industry: 'local-life',
+    styles: ['people'],
     hypothesis:
       '我猜连续 7 天观察同一家店之后，我能读出它生意好坏的信号，并知道自己喜不喜欢这种「从细节里看生意」的感觉。',
     days: [
@@ -118,6 +129,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：深度试用三个企业软件',
     direction: '企业服务SaaS',
     industry: 'enterprise-saas',
+    styles: ['build'],
     hypothesis:
       '我猜把三个工具用到能说出「它为谁解决什么问题」之后，我会知道自己更想「做工具」还是「卖工具」。',
     days: [
@@ -137,6 +149,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：用大白话讲清楚 7 个芯片概念',
     direction: '半导体',
     industry: 'semiconductor',
+    styles: ['analyze'],
     hypothesis:
       '我猜能用费曼法把 7 个概念讲给同学听之后，我会知道自己对硬核技术是真感兴趣，还是只是觉得它听着高级。',
     days: [
@@ -156,6 +169,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：跟踪同一个小区的租房市场',
     direction: '房地产',
     industry: 'real-estate',
+    styles: ['analyze', 'people'],
     hypothesis:
       '我猜每天 20 分钟盯同一小区的挂牌与成交之后，我能说清「这行的数据怎么来的」，并知道自己还想不想深入。',
     days: [
@@ -175,6 +189,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：做一节 5 分钟的微课',
     direction: '在线教育',
     industry: 'online-education',
+    styles: ['express'],
     hypothesis:
       '我猜把一门我会的小技能做成 5 分钟课之后，我会知道「教别人」带给我的能量是正是负。',
     days: [
@@ -194,6 +209,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：写 6 篇 300 字的身边故事',
     direction: '传统媒体',
     industry: 'traditional-media',
+    styles: ['express'],
     hypothesis:
       '我猜连续一周采访加写作之后，我会知道「靠内容吃饭」的第一周是什么滋味，以及想不想来第二周。',
     days: [
@@ -213,6 +229,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：解剖一款你玩过的游戏',
     direction: '游戏',
     industry: 'gaming',
+    styles: ['build', 'analyze'],
     hypothesis:
       '我猜从「玩」切换到「拆」之后，我会分清自己爱的是玩游戏本身，还是它背后的设计。',
     days: [
@@ -233,6 +250,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：每天用数据回答一个小问题',
     direction: '数据分析',
     industry: null,
+    styles: ['analyze'],
     hypothesis:
       '我猜连续 7 天「提问 → 找数 → 给答案」之后，我会知道自己是享受找答案的过程，还是只想快点交差。',
     days: [
@@ -252,6 +270,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：每天公开发一条内容',
     direction: '内容创作',
     industry: null,
+    styles: ['express'],
     hypothesis:
       '我猜连续 7 天公开发布之后，我会分清自己在意的是「有人看」还是「写完了」—— 这两者对应完全不同的职业路。',
     days: [
@@ -271,6 +290,7 @@ export const TEMPLATES: ExperimentTemplate[] = [
     title: '7 天：约谈 3 个走过你想走的路的人',
     direction: '职业访谈',
     industry: null,
+    styles: ['people'],
     hypothesis:
       '我猜聊完 3 个真实从业者之后，我对那条路的想象会具体很多，并能说出自己现在还缺什么。',
     days: [
