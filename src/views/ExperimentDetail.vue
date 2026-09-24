@@ -104,6 +104,16 @@
       <section class="block">
         <h2 class="block-title">记录第 {{ selectedDay }} 天</h2>
 
+        <!-- 来自模板的今日建议任务：省得用户翻回模板库记自己该干什么 -->
+        <p v-if="todayTask" class="today-task">
+          <span class="today-task-label">今日建议</span>
+          {{ todayTask }}
+        </p>
+        <p v-else-if="templateMissing" class="today-task today-task-missing">
+          <span class="today-task-label">提示</span>
+          这个实验的模板已不存在（内容可能已更新），按你自己的节奏记录就好。
+        </p>
+
         <label class="field">
           <span class="field-label">今天做了什么</span>
           <input v-model="draft.did" class="field-input" type="text" placeholder="30 分钟，做了什么">
@@ -228,6 +238,7 @@ import {
   averageEnergy,
   daysWithLike,
   getExperiment,
+  getTemplate,
   listLogs,
   progressOf,
   removeExperiment,
@@ -273,6 +284,15 @@ const progress = computed(() => progressOf(logs.value))
 const average = computed(() => averageEnergy(logs.value))
 const likeDays = computed(() => daysWithLike(logs.value))
 const suggestion = computed(() => suggestConclusion(logs.value))
+
+/** 模板给出的今日建议任务；手动创建或模板已下线时为 null */
+const template = computed(() =>
+  experiment.value?.template_id ? getTemplate(experiment.value.template_id) : null
+)
+const templateMissing = computed(
+  () => Boolean(experiment.value?.template_id) && template.value === null
+)
+const todayTask = computed(() => template.value?.days[selectedDay.value - 1] ?? null)
 
 const suggestionReason = computed(() => {
   const avg = average.value
@@ -467,6 +487,33 @@ watch(() => props.id, refresh)
   margin: 0 0 8px;
   font-size: $font-size-body;
   font-weight: 600;
+}
+
+/* 模板的今日建议任务：浅底强调，但不是命令 —— 表单照常可自由填写 */
+.today-task {
+  display: block;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: $radius-button;
+  background-color: $color-primary-soft;
+  color: $color-text;
+  font-size: $font-size-caption;
+  line-height: 1.7;
+}
+
+.today-task-label {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background-color: $color-bg;
+  color: $color-primary;
+  font-size: 11px;
+}
+
+.today-task-missing {
+  background-color: $color-surface;
+  color: $color-text-secondary;
 }
 
 .hypothesis {

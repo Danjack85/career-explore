@@ -10,6 +10,15 @@
       </router-link>
     </div>
 
+    <!-- 迷茫时最省力的入口：不用想清楚，直接抄一个跑通 -->
+    <router-link class="card tpl-entry" to="/templates">
+      <span class="tpl-entry-title">直接抄一个 7 天实验</span>
+      <span class="tpl-entry-desc">
+        {{ templateCount }} 个现成模板，每天 30 分钟，宿舍就能做。
+        想不清楚的时候，先做起来再想。
+      </span>
+    </router-link>
+
     <section class="current">
       <h2 class="section-title">进行中的实验</h2>
 
@@ -32,7 +41,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { listExperiments, progressOf, listLogs } from '@/api'
+import { listExperiments, progressOf, listLogs, TEMPLATES } from '@/api'
 import type { Experiment, ExperimentProgress } from '@/api'
 interface Entry {
   title: string
@@ -71,6 +80,8 @@ const progress = ref<ExperimentProgress>({
   ratio: 0,
   complete: false,
 })
+
+const templateCount = TEMPLATES.length
 
 const progressWidth = computed(() => `${Math.round(progress.value.ratio * 100)}%`)
 
@@ -112,6 +123,29 @@ onMounted(async () => {
   margin-top: 4px;
   font-size: $font-size-caption;
   color: $color-text-secondary;
+}
+
+/* 模板入口：视觉上与四个卡点区分开，是另一条路径 */
+.tpl-entry {
+  margin-top: 12px;
+  border-color: $color-primary;
+  background-color: $color-primary-soft;
+  color: $color-text;
+  text-decoration: none;
+}
+
+.tpl-entry-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-primary;
+}
+
+.tpl-entry-desc {
+  display: block;
+  margin-top: 4px;
+  font-size: $font-size-caption;
+  color: $color-text;
 }
 
 .current {

@@ -95,13 +95,39 @@
       </section>
 
       <section class="block next-step">
-        <h2 class="block-title">下一步</h2>
+        <h2 class="block-title">下一步：用 7 天试一试</h2>
         <p class="next-hint">
-          看完卡片还是不知道要不要往这个方向走。用 7 天做一次小实验，比继续看资料有用。
+          看完卡片还是不知道要不要往这个方向走。挑一个模板直接开始——每天 30 分钟，宿舍就能做。
         </p>
-        <button class="btn-primary next-btn" type="button" :disabled="joining" @click="startExperiment">
-          {{ joining ? '创建中…' : `用「${card.name}」开始一次 7 天实验` }}
-        </button>
+
+        <template v-if="industryTemplates.length > 0">
+          <article v-for="t in industryTemplates" :key="t.id" class="mini-tpl">
+            <p class="mini-tpl-title">{{ t.title }}</p>
+            <p class="mini-tpl-suitable">适合：{{ t.suitable }}</p>
+            <button
+              class="btn-primary mini-start"
+              type="button"
+              :disabled="startingId !== null"
+              @click="startFromTemplate(t)"
+            >
+              {{ startingId === t.id ? '创建中…' : '用这个模板开始' }}
+            </button>
+          </article>
+
+          <router-link class="more-link" to="/templates">
+            还有 {{ totalTemplates - industryTemplates.length }} 个其他方向的模板 →
+          </router-link>
+        </template>
+
+        <template v-else>
+          <button class="btn-primary next-btn" type="button" :disabled="joining" @click="startExperiment">
+            {{ joining ? '创建中…' : `用「${card.name}」开始一次 7 天实验` }}
+          </button>
+          <router-link class="more-link" to="/templates">
+            这个行业暂无专属模板，去模板库看看别的 →
+          </router-link>
+        </template>
+
         <p v-if="joinError" class="error">{{ joinError }}</p>
       </section>
 
@@ -111,10 +137,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { createExperiment, getIndustry } from '@/api'
-import type { IndustryCard } from '@/api'
+import { createExperiment, getIndustry, templatesForIndustry, TEMPLATES } from '@/api'
+import type { ExperimentTemplate, IndustryCard } from '@/api'
 import StageTag from '@/components/StageTag.vue'
 import SourceLevelTag from '@/components/SourceLevelTag.vue'
 import LoadState from '@/components/LoadState.vue'
@@ -127,6 +153,29 @@ const loading = ref(true)
 const error = ref('')
 const joining = ref(false)
 const joinError = ref('')
+const startingId = ref<string | null>(null)
+
+const industryTemplates = computed(() =>
+  card.value ? templatesForIndustry(card.value.id).slice(0, 2) : []
+)
+const totalTemplates = TEMPLATES.length
+
+function startFromTemplate(t: ExperimentTemplate): void {
+  if (startingId.value) return
+  startingId.value = t.id
+  joinError.value = ''
+  createExperiment({
+    title: t.title,
+    direction: t.direction,
+    hypothesis: t.hypothesis,
+    template_id: t.id,
+  })
+    .then((created) => router.push(`/experiment/${created.id}`))
+    .catch(() => {
+      joinError.value = '创建实验失败，请稍后再试。'
+      startingId.value = null
+    })
+}
 
 async function load(id: string): Promise<void> {
   loading.value = true
@@ -331,9 +380,43 @@ watch(() => props.id, load)
 }
 
 .next-hint {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   font-size: $font-size-caption;
   color: $color-text-secondary;
+}
+
+.mini-tpl {
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid $color-border;
+  border-radius: $radius-button;
+  background-color: $color-surface;
+}
+
+.mini-tpl-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.mini-tpl-suitable {
+  margin: 4px 0 10px;
+  font-size: 12px;
+  color: $color-text-secondary;
+}
+
+.mini-start {
+  width: 100%;
+}
+
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: $control-height;
+  font-size: $font-size-caption;
+  color: $color-primary;
+  text-decoration: none;
 }
 
 .next-btn {

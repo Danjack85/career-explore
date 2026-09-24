@@ -28,7 +28,10 @@
 
         <div v-if="runningRows.length === 0" class="empty">
           <p class="empty-text">还没有进行中的实验。选一个方向，先做 7 天。</p>
-          <router-link class="btn-primary link-btn" to="/assessment">去做一次盘点</router-link>
+          <div class="empty-actions">
+            <router-link class="btn-primary link-btn" to="/templates">抄一个模板开始</router-link>
+            <router-link class="btn-secondary link-btn" to="/assessment">先去做盘点</router-link>
+          </div>
         </div>
       </section>
 
@@ -189,6 +192,17 @@ onMounted(load)
 .conclusion-change {
   background-color: rgba(146, 64, 14, 0.1);
   color: $color-warning;
+}
+
+.empty-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.empty-actions .btn-primary,
+.empty-actions .btn-secondary {
+  text-decoration: none;
 }
 
 .empty-text {

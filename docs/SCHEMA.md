@@ -156,6 +156,7 @@
 | end_date | string | 结束日期（通常 start + 6 天） |
 | status | string | `planned` / `running` / `done` / `dropped` |
 | conclusion | string \| null | 复盘结论：`继续` / `排除` / `换方式`；未复盘为 `null` |
+| template_id | string \| null | 创建时用的模板 id（`src/api/experimentTemplates.ts`）；手动创建为 `null` |
 | created_at | string | 创建时间 |
 
 > **`conclusion` 与 `status` 的分工**：`status` 描述实验进程（还没开始 / 进行中 / 已结束 / 已放弃），
@@ -179,3 +180,8 @@
 | created_at | string | 创建时间 |
 
 同一实验每天最多一条记录。
+
+> **`template_id` 的用途**：实验模板库（`/templates`）是 App 自己的方法内容，
+> 解决「迷茫的学生写不出可证伪假设、设计不出 7 天任务」的冷启动问题。
+> 有值时详情页显示模板的「今日建议任务」；模板内容更新或下线时详情页降级提示，
+> 不影响已有记录。与 `conclusion` 一样属于对最初字段清单的补充。

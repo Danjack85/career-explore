@@ -136,6 +136,11 @@ export interface Experiment {
   status: ExperimentStatus
   /** 复盘结论；未复盘时为 null */
   conclusion: ExperimentConclusion | null
+  /**
+   * 创建时用的模板 id（src/api/experimentTemplates.ts）。
+   * 有值时详情页可显示模板的「今日建议任务」。手动创建的实验为 null。
+   */
+  template_id: string | null
   created_at: string
 }
 

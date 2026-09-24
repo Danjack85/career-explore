@@ -15,14 +15,22 @@ const LOG_KEY = 'logs'
 
 // ---------- 实验主表 ----------
 
+/** 旧数据没有 template_id 字段，读取时归一化，避免 undefined 渗进视图 */
+function normalize(e: Experiment): Experiment {
+  return { ...e, template_id: e.template_id ?? null }
+}
+
 export async function listExperiments(): Promise<Experiment[]> {
   const all = readList<Experiment>(EXP_KEY)
-  return all.sort((a, b) => b.created_at.localeCompare(a.created_at))
+  return all
+    .map(normalize)
+    .sort((a, b) => b.created_at.localeCompare(a.created_at))
 }
 
 export async function getExperiment(id: string): Promise<Experiment | null> {
   const all = readList<Experiment>(EXP_KEY)
-  return all.find((item) => item.id === id) ?? null
+  const found = all.find((item) => item.id === id)
+  return found ? normalize(found) : null
 }
 
 export interface CreateExperimentInput {
@@ -31,6 +39,8 @@ export interface CreateExperimentInput {
   hypothesis: string
   /** 默认今天 */
   start_date?: string
+  /** 从模板创建时带上模板 id；手动创建不用传 */
+  template_id?: string
 }
 
 export async function createExperiment(input: CreateExperimentInput): Promise<Experiment> {
@@ -47,6 +57,7 @@ export async function createExperiment(input: CreateExperimentInput): Promise<Ex
     end_date: addDays(start, EXPERIMENT_DAYS - 1),
     status: 'running',
     conclusion: null,
+    template_id: input.template_id?.trim() || null,
     created_at: nowISO(),
   }
 
